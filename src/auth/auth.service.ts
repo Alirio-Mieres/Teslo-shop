@@ -11,6 +11,7 @@ import { JwtPayload } from './interfaces/jwt-payload.interface';
 
 @Injectable()
 export class AuthService {
+  
 
   constructor(
     @InjectRepository(User)
@@ -68,6 +69,14 @@ export class AuthService {
     };
 
   }
+  
+  async checkAuthStatus(user: User) {
+    return {
+      ...user,
+      token: this.getJwtToken( { id: user.id })
+    };
+  }
+  
 
 
   private getJwtToken( payload: JwtPayload ) {
